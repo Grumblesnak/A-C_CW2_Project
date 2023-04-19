@@ -20,7 +20,33 @@ public class UserList {
         users.add(newUser);
     }
     
+    public boolean checkUser(String username){
+        boolean userExists = false;
+        for(int i = 0; i < users.size(); i++){
+            if(users.get(i).username.equals(username)){
+                userExists = true;
+            }
+        }
+        return userExists;
+    }
     
+    public boolean checkPassword(String password){
+        boolean passwordCorrect = false;
+        for(int i = 0; i < users.size(); i++){
+            if(users.get(i).password.equals(password)){
+                passwordCorrect = true;
+            }
+        }
+        return passwordCorrect;
+    }
+    
+    public void deleteUser(String username, String password){
+        for(int i = 0; i< users.size(); i++){
+            if(users.get(i).username.equals(username) && users.get(i).password.equals(password)){
+                users.remove(i);
+            }
+        }
+    }
     
     public void displayUsers(){
         if(users != null && users.size() > 0){

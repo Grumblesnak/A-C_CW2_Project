@@ -25,8 +25,11 @@ public class PlaylistUsage {
         String title, artist, genre;
         Integer releaseYear, songID;
         
+        // Confirmation is used for deleting user accounts and songs in a users playlist
+        String confirmation;
+        
         // userList is established as the connector to the UserList class and its functions
-         UserList userList = new UserList();
+        UserList userList = new UserList();
         
         Integer option;
         do {
@@ -51,9 +54,15 @@ public class PlaylistUsage {
                     // Input 1 will display options for the user to create a new user
                     // username and password are called to recieve inputs from the user
                     // A check is made for already existing usernames, but not passwords (security risk)
-                    // [input check for already existing username]
+                    // If a username already exists then a message is displayed and the user is sent back to the menu
                     // A boolean is then set up for a Do While loop when setting an accounts admin status
                     username = Input.getString("Create username: ");
+                    userList.checkUser(username);
+                    if(userList.checkUser(username) == true){
+                        System.out.println("Username is already taken...");
+                        System.out.println("---------------");
+                        break;
+                    }
                     password = Input.getString("Create password: ");
                     boolean b = false;
                         do{
@@ -90,6 +99,50 @@ public class PlaylistUsage {
                                 System.out.println("Invalid input");
                             }
                         }while(!b);
+                }
+                
+                case 2 -> {
+                    // Case 2 will delete the designated user after verification
+                    // User will be requested to enter both the username and password of the account for deletion
+                    username = Input.getString("Enter username: ");
+                    userList.checkUser(username);
+                    if(userList.checkUser(username) == true){
+                        // checkUser from adding a user is once again used to confirm a user exists
+                        // If the returned value is false then a message will be displayed and break back to menu
+                        password = Input.getString("Enter password: ");
+                        userList.checkPassword(password);
+                        if(userList.checkPassword(password) == true){
+                            // New checkPassword functions identically to checkUser but for passwords
+                            // If the returned value is false then will also display a message and break
+                            // If true then a confirmation will be displayed
+                            confirmation = Input.getString("Are you sure you wish to delete this account? (Y or N): ");
+                            if(confirmation.equals("Y") || confirmation.equals("y")){
+                                // Inputing Y or y will call deleteUser and delete the account in UserList then return to the menu
+                                userList.deleteUser(username, password);
+                                System.out.println("Account Deleted...");
+                                System.out.println("---------------");
+                                break;
+                            } else if(confirmation.equals("N") || confirmation.equals("n")){
+                                // Inputing N or n will break back to menu after a message, not deleting the user
+                                System.out.println("Deletion Cancelled...");
+                                System.out.println("---------------");
+                                break;
+                            } else {
+                                // anything else will be identical to N or n but with a different message, should be changed in later versions
+                                System.out.println("Invalid input...");
+                                System.out.println("---------------");
+                                break;
+                            }
+                        } else {
+                            System.out.println("Incorrect Password...");
+                            System.out.println("---------------");
+                            break;
+                        }
+                    } else {
+                        System.out.println("No User with that Name...");
+                        System.out.println("---------------");
+                        break;
+                    }
                 }
                 
                 case 3 -> {
