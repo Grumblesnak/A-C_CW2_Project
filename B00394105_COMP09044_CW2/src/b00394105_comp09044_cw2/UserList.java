@@ -48,6 +48,16 @@ public class UserList {
         }
     }
     
+    public Integer getListID(String username, String password){
+        Integer retrievedListID = 0;
+        for(int i = 0; i< users.size(); i++){
+            if(users.get(i).username.equals(username) && users.get(i).password.equals(password)){
+                retrievedListID = users.get(i).listID;
+            }
+        }
+        return retrievedListID;
+    }
+    
     public void displayUsers(){
         if(users != null && users.size() > 0){
             for (int i = 0; i < users.size(); i++){
