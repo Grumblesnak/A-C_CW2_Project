@@ -44,6 +44,17 @@ public class MusicList {
         }
     }
     
+    public void updateSong(String title, String artist, String genre, Integer releaseYear, Integer listID){
+        for(int i = 0; i< songs.size(); i++){
+            if(songs.get(i).listID.equals(listID)){
+                songs.get(i).title = title;
+                songs.get(i).artist = artist;
+                songs.get(i).genre = genre;
+                songs.get(i).releaseYear = releaseYear;
+            }
+        }
+    }
+    
     public Integer getCount(){
         songCount = songs.size();
         return songCount;

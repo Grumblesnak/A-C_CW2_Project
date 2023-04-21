@@ -177,12 +177,9 @@ public class PlaylistUsage {
                                 System.out.println("1: Add Song");
                                 System.out.println("2: Remove Song");
                                 System.out.println("3: Update Song");
-                                System.out.println("4: Display Songs");
-                                System.out.println("5: Create Collection");
-                                System.out.println("6: Delete Collection");
-                                System.out.println("7: Add to Collection");
-                                System.out.println("8: Remove from Collection");
-                                System.out.println("9: Display Collection");
+                                System.out.println("4: Display All Songs");
+                                System.out.println("5: Display Songs by...");
+                                System.out.println("6: Display Songs Ordered by...");
                                 System.out.println("--------------------");
                                 
                                userOption = Input.getInteger("Enter Menu Choice: ");
@@ -232,6 +229,34 @@ public class PlaylistUsage {
                                                    System.out.println("---------------");
                                                    break;
                                                }
+                                           } else {
+                                               System.out.println("No matching artist...");
+                                               System.out.println("---------------");
+                                               break;
+                                           }
+                                       } else {
+                                           System.out.println("No Song with that title...");
+                                           System.out.println("---------------");
+                                           break;
+                                       }
+                                   }
+                                   
+                                   case 3 -> {
+                                       title = Input.getString("Enter the songs title: ");
+                                       musicList.checkSongTitle(title, musicListID);
+                                       if(musicList.checkSongTitle(title, musicListID) == true){
+                                           artist = Input.getString("Enter the songs artist: ");
+                                           musicList.checkArtist(artist, musicListID);
+                                           if(musicList.checkArtist(artist, musicListID) == true){
+                                               System.out.println("---------------");
+                                               title = Input.getString("Enter new title for song: ");
+                                               artist = Input.getString("Enter new artist for song: ");
+                                               genre = Input.getString("Enter new genre for song: ");
+                                               releaseYear = Input.getInteger("Enter new release year for song: ");
+                                               musicList.updateSong(title, artist, genre, releaseYear, musicListID);
+                                               System.out.println("Song updated...");
+                                               System.out.println("---------------");
+                                               break;
                                            } else {
                                                System.out.println("No matching artist...");
                                                System.out.println("---------------");
